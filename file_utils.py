@@ -56,7 +56,7 @@ def saveResult(img_file, img, boxes, nn, dirname='./result/', verticals=None, te
         ###정답 파일을 열어서 박스 좌표를 비교한다.
         #os.listdir로 디렉토리 내의 데이터를 확인한다.
         #pC마다 설정해 주기 나름..
-        clist = os.listdir('D:/Python/Capsthone(찐)/CRAFT-pytorch-master/cmp_data')
+        clist = os.listdir('./cmp_data')
         #데이터가 있는 디렉토리의 주소를 구한다.
         ddir = os.path.dirname('./cmp_data/0001.txt')
         #두개를 합쳐서 경로를 만든다.
