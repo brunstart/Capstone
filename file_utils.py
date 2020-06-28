@@ -53,10 +53,15 @@ def saveResult(img_file, img, boxes, nn, dirname='./result/', verticals=None, te
         if not os.path.isdir(dirname):
             os.mkdir(dirname)
 
-        #정답 파일을 열어서 박스 좌표를 비교한다.
+        ###정답 파일을 열어서 박스 좌표를 비교한다.
+        #os.listdir로 디렉토리 내의 데이터를 확인한다.
+        #pC마다 설정해 주기 나름..
         clist = os.listdir('D:/Python/Capsthone(찐)/CRAFT-pytorch-master/cmp_data')
+        #데이터가 있는 디렉토리의 주소를 구한다.
         ddir = os.path.dirname('./cmp_data/0001.txt')
+        #두개를 합쳐서 경로를 만든다.
         jdir = os.path.join(ddir,clist[nn])
+        #해당하는 파일이 있는 경로를 연다.
         fs = open(jdir, 'r')
 
         #정확도를 구하기 위한 기준으로 rd의 길이를 누적시키기 위한 변수 선언
@@ -71,18 +76,18 @@ def saveResult(img_file, img, boxes, nn, dirname='./result/', verticals=None, te
                 strResult = ', '.join([str(p) for p in poly]) + '\r\n'
 
 
-                #정확도 비교
+                ##정확도 비교
+                #rd가 이미지에 대해 box한 결과 (정답)
                 rd = fs.readline()
                 rd = rd.replace("\n","").split("\t")
                 rd.pop(0)
                 alen +=len(rd)
+                #strr은 CRAFT가 이미지에대해 box한 결과 (예측)
                 strr = strResult.replace(",", "").replace("\r\n", "").split(" ")
                 plen +=len(strr)
-                #print("cmp ->", rd)
-                #print("result->", strr)
 
                 try:
-                    #rd가 수작업으로 한 박스이고, strr이 데이터 처리한 것.
+                    #예측에 대해 정답이 있는 확률.
                     for i in range(len(strr)):
                         if rd[i] in strr:
                             accu +=1
@@ -90,7 +95,7 @@ def saveResult(img_file, img, boxes, nn, dirname='./result/', verticals=None, te
                             accu -=1
                 except:
                     accu -=1
-
+                #정답에 대해 예측이 얼마나 맞는지.
                 for j in range(len(rd)):
                     if strr[i] in rd:
                         pccu +=1
