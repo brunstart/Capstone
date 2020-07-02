@@ -98,10 +98,13 @@ def Ocr_ouput():
 
                         FN=total_word_count-TP
 
-
-                        #print(TP, FN, FP, TN)
-                        print(filename, "의 Precision,Recall,Accuracy,F1score: ", end=" ")
-                        score(TP,FN,FP,TN)
+			try:
+                            #print(TP, FN, FP, TN)
+                            print(filename, "의 Precision,Recall,Accuracy,F1score: ", end=" ")
+                            score(TP,FN,FP,TN)
+                        except ZeroDivisionError:
+                            print(filename,"에 대해서는 TP값이 0으로 나와 산출이 무의미하다")
+                        
 
 
 
