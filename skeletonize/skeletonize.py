@@ -25,8 +25,9 @@ file_list = os.listdir(path)
 for i in range(0,len(files)):
     img = cv2.imread(files[i], cv2.IMREAD_GRAYSCALE)
     thr = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+    blur = cv2.GaussianBlur(thr, (3, 3), 0)
 
-    image = invert(img_as_bool(thr))
+    image = invert(img_as_bool(blur))
     out = skeletonize(image)
     #skeletonzie한 결과 저장
     io.imsave(result_path + file_list[i], out)
